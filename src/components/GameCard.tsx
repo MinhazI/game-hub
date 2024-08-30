@@ -4,6 +4,7 @@ import PlatformIconList from "./PlatformIconList";
 import GameCriticScore from "./GameCriticScore";
 import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GameCardContainer";
+import Emoji from "./Emoji";
 
 interface GameCardProps {
   game: Game;
@@ -18,6 +19,7 @@ const GameCard = ({ game }: GameCardProps) => {
           <Heading fontSize={"2xl"} marginBottom={3}>
             {game.name}
           </Heading>
+          <Emoji rating={game.rating_top} />
           <HStack justifyContent={"space-between"}>
             <PlatformIconList
               platforms={game.parent_platforms.map((p) => p.platform)}
