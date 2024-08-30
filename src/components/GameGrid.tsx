@@ -24,7 +24,7 @@ const GameGrid = ({ gameQuery }: GameGridProps) => {
       {isLoading &&
         Array(10)
           .fill(1)
-          .map((number, key) => <GameCardSkeleton key={key} />)}
+          .map((_number, key) => <GameCardSkeleton key={key} />)}
       {data.map((game) => (
         <Box key={game.id}>
           <GameCard key={game.id} game={game} />

@@ -29,7 +29,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
         {isLoading &&
           Array(20)
             .fill(1)
-            .map((n, e) => <GenreSkeleton key={e} />)}
+            .map((_n, e) => <GenreSkeleton key={e} />)}
         {data.map((genre) => (
           <ListItem key={genre.id} paddingY={"5px"}>
             <HStack>
