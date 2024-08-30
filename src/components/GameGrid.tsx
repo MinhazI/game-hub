@@ -6,7 +6,6 @@ import GameCardSkeleton from "./GameCardSkeleton";
 const GameGrid = () => {
   const { error, data, isLoading } = useGames();
 
-  const skeletons = [1, 2, 3, 4, 5, 6];
   return (
     <>
       {error && <Text color={"tomato"}>{error}</Text>}
@@ -17,7 +16,9 @@ const GameGrid = () => {
         spacing={5}
       >
         {isLoading &&
-          skeletons.map((number) => <GameCardSkeleton key={number} />)}
+          Array(10)
+            .fill(1)
+            .map((number, key) => <GameCardSkeleton key={key} />)}
         {data.map((game) => (
           <Box key={game.id}>
             <GameCard key={game.id} game={game} />
