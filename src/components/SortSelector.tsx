@@ -2,20 +2,49 @@ import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 import PlatformSelectorSkeleton from "./PlatformSelectorSkeleton";
+import useGames from "../hooks/useGames";
+import { GameQuery } from "../App";
 
-const SortSelector = () => {
+interface SortSelectorProps {
+  onSelectSortOrder: (sortOrder: string) => void;
+  sortOrder: string;
+  gameQuery: GameQuery;
+}
+
+const SortSelector = ({
+  onSelectSortOrder,
+  sortOrder,
+  gameQuery,
+}: SortSelectorProps) => {
+  const { isLoading } = useGames(gameQuery);
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average Rating" },
+    { value: "", label: "" },
+  ];
+
+  const currentSortOrder = sortOrders.find((order) => order.value == sortOrder);
+
+  if (isLoading) return <PlatformSelectorSkeleton />;
+
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order By Relavence
+        {`Order By ${currentSortOrder?.label || ""}`}
       </MenuButton>
       <MenuList>
-        <MenuItem>Relevance</MenuItem>
-        <MenuItem>Date added</MenuItem>
-        <MenuItem>Name</MenuItem>
-        <MenuItem>Release Date</MenuItem>
-        <MenuItem>Popularity</MenuItem>
-        <MenuItem>Average Rating</MenuItem>
+        {sortOrders.map((order) => (
+          <MenuItem
+            key={order.label}
+            value={order.value}
+            onClick={() => onSelectSortOrder(order.value)}
+          >
+            {order.label}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
